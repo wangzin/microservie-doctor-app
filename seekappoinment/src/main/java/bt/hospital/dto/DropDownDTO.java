@@ -8,7 +8,7 @@ public class DropDownDTO implements Serializable{
 	private int headerId;
 	private String headerName;
 	private String identifier;
-	
+	private String exception;
 	public DropDownDTO() {}
 	
 	public DropDownDTO(Object[] input) {
@@ -41,5 +41,14 @@ public class DropDownDTO implements Serializable{
 	public void setIdentifier(String identifier) {
 		this.identifier = identifier;
 	}
+
+	public String getException() {
+		return exception;
+	}
+
+	public void setException(String exception) {
+		this.exception = exception;
+	}
+	
 
 }
