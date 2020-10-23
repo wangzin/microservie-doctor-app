@@ -26,6 +26,10 @@ public class IndexService {
 		return dao.getdoctorhospital(paramval,paramtype);
 	}
 	
+	public List<DropDownDTO> getdateslot(String paramval){
+		return dao.getdateslot(paramval);
+	}
+	
 	public List<DropDownDTO> gettimeslot(String paramval){
 		return dao.gettimeslot(paramval);
 	}

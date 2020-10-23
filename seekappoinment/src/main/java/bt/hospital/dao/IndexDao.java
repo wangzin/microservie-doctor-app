@@ -63,10 +63,22 @@ public class IndexDao {
 			return null;
 		}
 	}	
-	public List<DropDownDTO> gettimeslot(String paramval){
+	public List<DropDownDTO> getdateslot(String paramval){
 		try {
 			List<DropDownDTO> output = new ArrayList<>();
 			String sql="SELECT t.Id AS headerId,CONCAT(t.Date_Schedule, '(',t.Day,')')  AS headerName FROM t_date_schedule t WHERE t.Doctor_Id="+paramval;
+			Query result_query = sqlQuery(sql,DropDownDTO.class);
+			output=result_query.getResultList();
+			return output;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public List<DropDownDTO> gettimeslot(String paramval){
+		try {
+			List<DropDownDTO> output = new ArrayList<>();
+			String sql="SELECT t.Id AS headerId,t.Time_Schedule AS headerName FROM t_time_schedule t WHERE t.Date_Schedule_Id="+paramval;
 			Query result_query = sqlQuery(sql,DropDownDTO.class);
 			output=result_query.getResultList();
 			return output;

@@ -67,12 +67,32 @@ public class IndexController {
 		String docId=request.getParameter("doctor");
 		String ptientId=request.getParameter("cid");
 		List<DropDownDTO> dropDownList = new ArrayList<DropDownDTO>();	
-		dropDownList = service.gettimeslot(docId);
+		dropDownList = service.getdateslot(docId);
 		model.addAttribute("timeSlot", dropDownList);
 		//UserModal user=service.getuserdetails(ptientId);
 		
 		//model.addAttribute("userDetails", user);
         return "pages/appointmentPage";
     }
+	
+	@RequestMapping("/gettimeschedule")
+	protected void gettimeschedule(HttpServletRequest request, HttpServletResponse response){
+		String jsonText = "";
+		Gson gson = new Gson();
+		List<DropDownDTO> dropDownList = new ArrayList<DropDownDTO>();
+		try {
+			response.setContentType("application/json;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			String paramvalue = request.getParameter("paramvalue");
+			dropDownList=service.gettimeslot(paramvalue);
+			jsonText = gson.toJson(dropDownList);
+			jsonText = new String(jsonText.getBytes("UTF-8"), "UTF-8");
+			out.println(jsonText);
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 }
