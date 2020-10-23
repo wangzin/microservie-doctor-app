@@ -68,9 +68,10 @@ public class IndexController {
 		String ptientId=request.getParameter("cid");
 		List<DropDownDTO> dropDownList = new ArrayList<DropDownDTO>();	
 		dropDownList = service.gettimeslot(docId);
-		UserModal user=service.getuserdetails(ptientId);
 		model.addAttribute("timeSlot", dropDownList);
-		model.addAttribute("userDetails", user);
+		//UserModal user=service.getuserdetails(ptientId);
+		
+		//model.addAttribute("userDetails", user);
         return "pages/appointmentPage";
     }
 

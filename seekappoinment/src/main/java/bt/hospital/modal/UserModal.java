@@ -11,6 +11,7 @@ import javax.persistence.Table;
 public class UserModal {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="Id")
     private long id;	
 	@Column(name="CID")
     private String cid;

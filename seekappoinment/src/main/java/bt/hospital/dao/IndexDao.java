@@ -16,7 +16,6 @@ import org.springframework.stereotype.Repository;
 import bt.hospital.dto.DropDownDTO;
 import bt.hospital.modal.DzongkahgModal;
 import bt.hospital.modal.UserModal;
-import netgloo.models.User;
 
 @Repository
 @Transactional
@@ -67,7 +66,7 @@ public class IndexDao {
 	public List<DropDownDTO> gettimeslot(String paramval){
 		try {
 			List<DropDownDTO> output = new ArrayList<>();
-			String sql="SELECT t.Id AS headerId, t.Date_Schedule AS headerName,t.Day identifier FROM t_date_schedule t WHERE t.Doctor_Id="+paramval;
+			String sql="SELECT t.Id AS headerId,CONCAT(t.Date_Schedule, '(',t.Day,')')  AS headerName FROM t_date_schedule t WHERE t.Doctor_Id="+paramval;
 			Query result_query = sqlQuery(sql,DropDownDTO.class);
 			output=result_query.getResultList();
 			return output;
@@ -78,10 +77,19 @@ public class IndexDao {
 	}
 	public UserModal getuserdetails(String paramval){
 		try {
-			return (UserModal) entityManager.createQuery(
-			        "from UserModal where cid = :cid")
-			        .setParameter("cid", paramval)
-			        .getSingleResult();
+			String sql = "select p from UserModal p where p.cid="+paramval;
+			UserModal output = null;
+			
+			Query query = entityManager.createQuery(sql);
+			
+			output = (UserModal) query.getSingleResult();
+			
+			/*
+			 * if ((result!=null)&&(!result.isEmpty())) { output = result.get(0); }
+			 */
+			
+			return output;
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

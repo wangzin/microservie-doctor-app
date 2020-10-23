@@ -82,9 +82,9 @@
 													<div class="form-group card-label">
 														<label>Select Day</label>
 														<select class="form-control" name="dzongkhag" id="dzongkhag" onchange="gethospitaldoctors(this.value,'hospital')" onclick="removeError('dzongkhag_err')">
-															<option value="">Select Dzongkhag</option>
-															 <option th:each="dzo: timeSlot" th:value="${dzo.Id}"
-					               								th:text="${dzo.headerName} (${dzo.identifier})"></option>
+															<option value="">Select Date</option>
+															<option th:each="dzo: ${timeSlot}" th:value="${dzo.headerId}"
+               													th:text="${dzo.HeaderName}"></option>
 														</select>
 														<span id="dzongkhag_err" class="text-danger"></span>
 													</div>
