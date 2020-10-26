@@ -35,6 +35,7 @@ public class BaseController {
 		
 		List<CommonDto> user =new ArrayList<CommonDto>();
 	    try {
+	    	System.out.println("int the time slot api");
 	    	user =dao.gettimeslotdetails(id);
 	    }
 	    catch (Exception ex) {
