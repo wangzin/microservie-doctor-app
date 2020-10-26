@@ -72,40 +72,8 @@
 				<div class="container-fluid">
 					<div class="banner-wrapper">
 						<div class="banner-header text-center">
-							<h1>Search Doctor, Make an Appointment</h1>
-							<p>Discover the best doctors, clinic & hospital the city nearest to you.</p>
+							<h1><span th:utext="${message}"></span></h1>
 						</div>
-                         
-						<!-- Search -->
-						<div class="search-box">
-							<form action="/displayappointmentPage" id="searchform">
-								<div class="form-group search-location">
-									<select class="form-control" name="dzongkhag" id="dzongkhag" onchange="gethospitaldoctors(this.value,'hospital','hospital')" onclick="removeError('dzongkhag_err')">
-										<option value="">Select Dzongkhag</option>
-										 <option th:each="dzo: ${dzongkhaglist}" th:value="${dzo.Id}"
-               								th:text="${dzo.Dzongkhag_Name}"></option>
-									</select>
-									<span id="dzongkhag_err" class="text-danger"></span>
-								</div>
-								<div class="form-group search-location">
-									<select class="form-control" name="hospital" id="hospital" onchange="gethospitaldoctors(this.value,'doctor','doctor')" onclick="removeError('hospital_err')">
-										<option value="">Select Hospital</option>
-									</select>
-									<span id="hospital_err" class="text-danger"></span>
-								</div>
-								<div class="form-group pr-2">
-									<select class="form-control" name="doctor" id="doctor" onclick="removeError('doctor_err')">
-										<option value="">Select Doctor</option>
-									</select>
-									<span id="doctor_err" class="text-danger"></span>
-								</div>
-								<div class="form-group pr-2">
-									<input type="text" name="cid" id="cid" placeholder="CID" class="form-control" onclick="removeError('cid_err')">
-									<span id="cid_err" class="text-danger"></span>
-								</div>
-								<button type="button" class="btn btn-primary search-btn" onclick="searchdetails()"><i class="fas fa-search"></i> <span>Search</span></button>
-							</form>
-						</div>						
 					</div>
 				</div>
 			</section>
@@ -251,65 +219,3 @@
 		<script src="assets/js/bootstrap.min.js"></script>
 		<script src="assets/js/slick.js"></script>
 		<script src="assets/js/script.js"></script>
-		<script>
-		function gethospitaldoctors(valu, type, targetId){
-			$('#'+targetId).empty();
-			$('#'+targetId).append("<option value=''>SELECT</option>");
-				$.ajax({
-			        url: "/gethosptaldoctor?paramvalue="+valu+"&paramtype="+type,
-			        type: "GET",
-			        cache: false,
-					async: false,
-					dataType : "json",
-			        success: function (data) {
-			        	setTimeout(function(){
-							 for (var i = 0; i < data.length; i++) {
-								 $('#'+targetId).append("<option value=" + data[i].headerId + ">"+ data[i].headerName + "</option>");
-						    }
-					   	}, 10);
-			        },
-			        error: function () {
-			          // Handle upload error
-			          $("#upload-file-message").text(
-			              "File not uploaded (perhaps it's too much big)");
-			        }
-			      });
-			}
-			function searchdetails(){
-				if(validatesearch()){
-					$('#searchform').submit();
-
-				}
-			}
-			function validatesearch(){
-				var returntype=true;
-				if($('#dzongkhag').val()==""){
-					$('#dzongkhag_err').html('Please select dzongkhag');
-					returntype=false;
-				}
-				if($('#hospital').val()==""){
-					$('#hospital_err').html('Please select Hospital');
-					returntype=false;
-				}
-				if($('#doctor').val()==""){
-					$('#doctor_err').html('Please select Doctor');
-					returntype=false;
-				}
-				if($('#cid').val()==""){
-					$('#cid_err').html('Please provide your CID');
-					returntype=false;
-				}
-				if($('#cid').val().length!=11){
-					$('#cid_err').html('Your cid should be 11 digit');
-					returntype=false;
-				}
-				return returntype;
-			}
-			function removeError(erroId){
-				$('#'+erroId).html('');		
-				
-			}
-			
-		</script>
-	</body>
-</html>

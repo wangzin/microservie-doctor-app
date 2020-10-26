@@ -74,14 +74,15 @@
 					<div class="col-md-12 col-lg-12">
 						<div class="card">
 							<div class="card-body">
-								<form action="https://dreamguys.co.in/demo/doccure/booking-success.html">
+								<form action="/submitform" id="formid">
 									<div class="info-widget">
+									<input type="hidden" name="docId" id="docId" th:value="${docId}">
 										<h4 class="card-title">Time Available</h4>
 										<div class="row">
 											<div class="col-md-6 col-sm-12">
 												<div class="form-group card-label">
 													<label>Select Day</label>
-													<select class="form-control" name="dzongkhag" id="dzongkhag" onchange="gettimeschedule(this.value)" onclick="removeError('dzongkhag_err')">
+													<select class="form-control" name="dateschedule" id="dateschedule" onchange="gettimeschedule(this.value)" onclick="removeError('dzongkhag_err')">
 														<option value="">Select Date</option>
 														<option th:each="dzo: ${timeSlot}" th:value="${dzo.headerId}"
 	             													th:text="${dzo.HeaderName}"></option>
@@ -95,46 +96,156 @@
 													<span id="radiovalues"></span>
 												</div>
 											</div>
+											<div class="col-md-6 col-sm-12">
+												<div class="form-group card-label">
+													<select class="form-control" name="disease" id="disease" onclick="removeError('disease_error')">
+														<option value="">Select Disease</option>
+														<option th:each="dzo: ${diseaselist}" th:value="${dzo.headerId}"
+	             													th:text="${dzo.HeaderName}"></option>
+													</select>
+													<span id="disease_error" class="text-danger"></span>
+												</div>
+											</div>
 										</div>
 									</div>
 									
 									<div class="info-widget">
 										<h4 class="card-title">Personal Information</h4>
+										<div th:if="${patientdetails!=null}">
+											<input type="hidden" name="type" id="type" value="existing">
+											<div class="row">
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group">
+														<label>CID:</label>
+														<input class="form-control" type="text" name="cid" id="cid" th:value="${patientdetails.CID}" readonly>
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group">
+														<label>Full Name</label>
+														<input class="form-control" type="text" name="fullName" th:value="${patientdetails.Full_Name}" id="fullName">
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group">
+														<label>Gender</label>
+														<select class="form-control" name="gender" id="gender">
+															<option value="">Select</option>
+															<option value="M">Male</option>
+															<option value="F">Female</option>
+															<option value="O">Others</option>
+														</select>
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group card-label">
+														<label>Email (User Name)</label>
+														<input class="form-control" type="email" id="email" name="email" th:value="${patientdetails.Username_Email}">
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group card-label">
+														<label>Phone</label>
+														<input class="form-control" type="number" name="phonenumber" th:value="${patientdetails.Contact_Number}" id="phonenumber">
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group card-label">
+														<label>Dzongkhag</label>
+														<select class="form-control" name="dzongkhag" id="dzongkhag" onchange="getdropdown(this.value,'gewog','gewog')" onclick="removeError('dzongkhag_err')">
+															<option value="">Select Dzongkhag</option>
+															 <option th:each="dzo: ${dzongkhaglist}" th:value="${dzo.Id}"
+					               								th:text="${dzo.Dzongkhag_Name}"></option>
+														</select>
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group card-label">
+														<label>Gewog</label>
+														<select class="form-control" name="gewog" id="gewog" onchange="getdropdown(this.value,'village','village')" onclick="removeError('dzongkhag_err')">
+															<option value="">Select Gewog</option>
+														</select>
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group card-label">
+														<label>Village</label>
+														<select class="form-control" name="village" id="village" onclick="removeError('dzongkhag_err')">
+															<option value="">Select Village</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div th:if="${patientdetails==null}">
+											<input type="hidden" name="type" id="type" value="newdata">
+											<div class="row">
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group">
+														<label>CID:</label>
+														<input class="form-control" type="text" name="cid" id="cid" th:value="${cid}" readonly>
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group">
+														<label>Full Name</label>
+														<input class="form-control" type="text" name="fullName" id="fullName">
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group">
+														<label>Gender</label>
+														<select class="form-control" name="gender" id="gender">
+															<option value="">Select</option>
+															<option value="M">Male</option>
+															<option value="F">Female</option>
+															<option value="O">Others</option>
+														</select>
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group card-label">
+														<label>Email (User Name)</label>
+														<input class="form-control" type="email" id="email" name="email">
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group card-label">
+														<label>Phone</label>
+														<input class="form-control" type="number" name="phonenumber" id="phonenumber">
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group card-label">
+														<label>Dzongkhag</label>
+														<select class="form-control" name="dzongkhag" id="dzongkhag" onchange="getdropdown(this.value,'gewog','gewog')" onclick="removeError('dzongkhag_err')">
+															<option value="">Select Dzongkhag</option>
+															 <option th:each="dzo: ${dzongkhaglist}" th:value="${dzo.Id}"
+					               								th:text="${dzo.Dzongkhag_Name}"></option>
+														</select>
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group card-label">
+														<label>Gewog</label>
+														<select class="form-control" name="gewog" id="gewog" onchange="getdropdown(this.value,'village','village')" onclick="removeError('dzongkhag_err')">
+															<option value="">Select Gewog</option>
+														</select>
+													</div>
+												</div>
+												<div class="col-md-6 col-sm-12">
+													<div class="form-group card-label">
+														<label>Village</label>
+														<select class="form-control" name="village" id="village" onclick="removeError('dzongkhag_err')">
+															<option value="">Select Village</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
 										<div class="row">
 											<div class="col-md-6 col-sm-12">
-												<div class="form-group">
-													<label>CID:</label>
-													<input class="form-control" type="number" name="cid" id="cid">
-												</div>
-											</div>
-											<div class="col-md-6 col-sm-12">
-												<div class="form-group">
-													<label>Full Name</label>
-													<input class="form-control" type="text" name="fullName" id="fullName">
-												</div>
-											</div>
-											<div class="col-md-6 col-sm-12">
-												<div class="form-group">
-													<label>Gender</label>
-													<select class="form-control" name="gender" id="gender">
-														<option value="">Select</option>
-														<option value="M">Male</option>
-														<option value="F">Female</option>
-														<option value="O">Others</option>
-													</select>
-												</div>
-											</div>
-											<div class="col-md-6 col-sm-12">
-												<div class="form-group card-label">
-													<label>Email (User Name)</label>
-													<input class="form-control" type="email" id="email" name="email">
-												</div>
-											</div>
-											<div class="col-md-6 col-sm-12">
-												<div class="form-group card-label">
-													<label>Phone</label>
-													<input class="form-control" type="number" name="phonenumber" id="phonenumber">
-												</div>
+												<button class="btn btn-primary" type="button" onclick="submitform()">Submit</button>
 											</div>
 										</div>
 									</div>
@@ -309,6 +420,36 @@
 		        }
 		      });
 		}
+		function removeError(erroId){
+			$('#'+erroId).html('');		
+			
+		}
+		function getdropdown(valu, type, targetId){
+			$('#'+targetId).empty();
+			$('#'+targetId).append("<option value=''>SELECT</option>");
+			$.ajax({
+		        url: "/gethosptaldoctor?paramvalue="+valu+"&paramtype="+type,
+		        type: "GET",
+		        cache: false,
+				async: false,
+				dataType : "json",
+		        success: function (data) {
+		        	setTimeout(function(){
+						 for (var i = 0; i < data.length; i++) {
+							 $('#'+targetId).append("<option value=" + data[i].headerId + ">"+ data[i].headerName + "</option>");
+					    }
+				   	}, 10);
+		        },
+		        error: function () {
+		          // Handle upload error
+		          $("#upload-file-message").text(
+		              "File not uploaded (perhaps it's too much big)");
+		        }
+		      });
+		}
+		function submitform(){
+			$('#formid').submit();
+		}	
 	</script>
 	
 	</body>

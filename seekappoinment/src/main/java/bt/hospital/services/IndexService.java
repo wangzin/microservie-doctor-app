@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import bt.hospital.apiDto.UserDto;
 import bt.hospital.dao.IndexDao;
 import bt.hospital.dto.DropDownDTO;
+import bt.hospital.modal.AppointmentModal;
 import bt.hospital.modal.DzongkahgModal;
 import bt.hospital.modal.UserModal;
 
@@ -36,6 +38,18 @@ public class IndexService {
 	public UserModal getuserdetails(String paramval){
 		return dao.getuserdetails(paramval);
 	}
+	public UserDto insertuserdetails(UserModal paramval){
+		return dao.insertuserdetails(paramval);
+	}
+	
+	public int getpatientId(String cid) {
+		return dao.getpatientId(cid);
+	}
+	public UserDto insertappointmentdetails(AppointmentModal paramval){
+		return dao.insertappointmentdetails(paramval);
+	}
+	
+	
 	
 	
 
