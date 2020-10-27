@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import bt.hospital.apiDto.UserDto;
 import bt.hospital.dto.DropDownDTO;
+import bt.hospital.dto.StatusDto;
 import bt.hospital.modal.AppointmentModal;
 import bt.hospital.modal.DzongkahgModal;
 import bt.hospital.modal.UserModal;
@@ -154,6 +155,24 @@ public class IndexDao {
 		}
 		return dto;
 	}
+	public List<StatusDto> getsearchdetails(String paramval){
+		List<StatusDto> dto = new ArrayList<>();
+		try {
+			String sql="SELECT u.Full_Name patientName, ud.Full_Name doctorname,d.Disease_Name,a.Created_On,s.Status_Name FROM t_appoint_details_application a JOIN t_user_master u ON u.Id=a.Patient_Id JOIN t_user_master ud ON ud.Id=a.Doctor_Id JOIN t_disease_master d ON d.Id=a.Disease_Id JOIN t_status_master s ON s.Id=a.Staus_Id";
+			if(paramval.length()==11) {
+				sql+=" WHERE u.CID="+paramval;
+			}
+			else{
+				sql+=" WHERE u.Contact_Number="+paramval;
+			}
+			Query result_query = sqlQuery(sql,StatusDto.class);
+			dto=result_query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	
 	
 
 }

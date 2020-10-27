@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 
 import bt.hospital.apiDto.CommonDto;
 import bt.hospital.dto.DropDownDTO;
+import bt.hospital.dto.StatusDto;
 import bt.hospital.apiDto.UserDto;
 import bt.hospital.modal.AppointmentModal;
 import bt.hospital.modal.DzongkahgModal;
@@ -142,6 +143,7 @@ public class IndexController {
 		app.setDate_Schedule_Id(Integer.parseInt(request.getParameter("dateschedule")));
 		app.setTime_Slot_Id(Integer.parseInt(request.getParameter("timeslot")));
 		app.setPatient_Id(patientId);
+		app.setStaus_Id(4);
 		UserDto dto =service.insertappointmentdetails(app);
 		String message="";
 		if(dto.getStatus().equalsIgnoreCase("success")) {
@@ -153,5 +155,24 @@ public class IndexController {
 		model.addAttribute("message", message);
 		return "pages/acknowledgement";
 	}
+	@RequestMapping("/searchDetails")
+    public void searchDetails(HttpServletRequest request,HttpServletResponse response) {
+		String jsonText = "";
+		Gson gson = new Gson();
+		try {
+			response.setContentType("application/json;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			String applicationId=request.getParameter("paramvalue");
+			List<StatusDto> searchdetails = service.getsearchdetails(applicationId);
+			//model.addAttribute("searchdetails", searchdetails);
+			jsonText = gson.toJson(searchdetails);
+			jsonText = new String(jsonText.getBytes("UTF-8"), "UTF-8");
+			out.println(jsonText);
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+    }
 
 }

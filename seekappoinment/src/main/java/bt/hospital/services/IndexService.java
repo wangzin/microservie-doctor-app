@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import bt.hospital.apiDto.UserDto;
 import bt.hospital.dao.IndexDao;
 import bt.hospital.dto.DropDownDTO;
+import bt.hospital.dto.StatusDto;
 import bt.hospital.modal.AppointmentModal;
 import bt.hospital.modal.DzongkahgModal;
 import bt.hospital.modal.UserModal;
@@ -47,6 +48,10 @@ public class IndexService {
 	}
 	public UserDto insertappointmentdetails(AppointmentModal paramval){
 		return dao.insertappointmentdetails(paramval);
+	}
+	
+	public List<StatusDto> getsearchdetails(String paramval){
+		return dao.getsearchdetails(paramval);
 	}
 	
 	

@@ -23,13 +23,13 @@
 							<span></span>
 						</span>
 					</a>
-					<a href="index-2.html" class="navbar-brand logo">
+					<a th:href="${baseUrl}" class="navbar-brand logo">
 						<img src="assets/img/logo.png" class="img-fluid" alt="Logo">
 					</a>
 				</div>
 				<div class="main-menu-wrapper">
 					<div class="menu-header">
-						<a href="index-2.html" class="menu-logo">
+						<a th:href="${baseUrl}" class="menu-logo">
 							<img src="assets/img/logo.png" class="img-fluid" alt="Logo">
 						</a>
 						<a id="menu_close" class="menu-close" href="javascript:void(0);">
@@ -38,24 +38,11 @@
 					</div>
 					<ul class="main-nav">
 						<li class="active">
-							<a href="<%=request.getContextPath()%>">Home</a>
+							<a th:href="${baseUrl}">Home</a>
 						</li>
-						<li class="has-submenu">
-							<a href="#">Doctors <i class="fas fa-chevron-down"></i></a>
-							<ul class="submenu">
-								<li><a href="doctor-dashboard.html">Doctor Dashboard</a></li>
-								<li><a href="appointments.html">Appointments</a></li>
-								<li><a href="schedule-timings.html">Schedule Timing</a></li>
-							</ul>
-						</li>	
-						<li class="has-submenu">
-							<a href="#">Patients <i class="fas fa-chevron-down"></i></a>
-							<ul class="submenu">
-								<li><a href="search.html">Search Doctor</a></li>
-								<li><a href="doctor-profile.html">Doctor Profile</a></li>
-								<li><a href="http://localhost:8089/">Book/make appointment</a></li>
-							</ul>
-						</li>	
+						<li>
+							<a href="#" onclick="showsearchindex()">Track Application</a>
+						</li>
 						<li class="login-link">
 							<a href="login.html">Login / Signup</a>
 						</li>
@@ -450,6 +437,9 @@
 		function submitform(){
 			$('#formid').submit();
 		}	
+		function showsearchindex(){
+			
+		}
 	</script>
 	
 	</body>
