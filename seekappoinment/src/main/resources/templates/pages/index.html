@@ -43,14 +43,14 @@
 							<li>
 								<a href="#" onclick="showtrackapplication()">Track Application</a>
 							</li>
-							<li class="login-link">
-								<a href="login.html">Login / Signup</a>
+							<li>
+								<a href="http://desktop-v05vr70.mshome.net:9998/" target="_blank">Signup</a>
 							</li>
-						</ul>		 
+						</ul>	  	 
 					</div>		 
 					<ul class="nav header-navbar-rht">
 						<li class="nav-item">
-							<a class="nav-link header-login" href="login.html">login / Signup </a>
+							<a class="nav-link header-login" href="login.html">login</a>
 						</li>
 					</ul>
 				</nav>
@@ -341,6 +341,20 @@
 			      	});
 				}
 			}
+			/* function loadsignup(){
+				let url="/loadsignuppage";
+				
+				$.ajax({
+					type: "GET",
+		            url: url,
+		            success : function(data){
+		                 $('#contentmaindiv').html(data);
+		            },
+			        error: function () {
+			          $("#contentmaindiv").text("Not able to load the detils");
+			        }
+		      	});
+			} */
 		</script>
 	</body>
 </html>

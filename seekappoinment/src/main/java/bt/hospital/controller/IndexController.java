@@ -174,5 +174,11 @@ public class IndexController {
 		}
 		
     }
-
+	
+	/*
+	 * @RequestMapping("/loadsignuppage") public String loadsignuppage(Model model)
+	 * { RestTemplate restTemplate = new RestTemplate(); String directory =
+	 * env.getProperty("baseEndPoint"); String endpointUrl =
+	 * directory+"gettimescheduledetails?id="+docId; return endpointUrl; }
+	 */
 }
